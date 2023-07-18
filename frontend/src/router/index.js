@@ -40,12 +40,12 @@ const router = createRouter({
     {
       path: "/driver",
       name: "driver",
-      component: TripView,
+      component: DriverView,
     },
     {
       path: "/standby",
       name: "standby",
-      component: TripView,
+      component: StandbyView,
     },
   ],
 });
