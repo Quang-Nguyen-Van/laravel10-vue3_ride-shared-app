@@ -6,6 +6,7 @@ use App\Models\Trip;
 use App\Events\TripEnded;
 use App\Events\TripStarted;
 use App\Events\TripAccepted;
+use App\Events\TripCreated;
 use Illuminate\Http\Request;
 use App\Events\TripLocationUpdated;
 
@@ -19,11 +20,15 @@ class TripController extends Controller
             'destination_name' => 'required',
         ]);
 
-        return $request->user()->trips()->create($request->only([
+        $trip = $request->user()->trips()->create($request->only([
             'origin',
             'destination',
             'destination_name',
         ]));
+
+        TripCreated::dispatch($trip, $request->user());
+
+        return $trip;
     }
 
     public function show(Request $request, Trip $trip)

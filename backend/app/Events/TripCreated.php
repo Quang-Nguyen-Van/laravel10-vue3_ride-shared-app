@@ -12,7 +12,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class TripStarted
+class TripCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -35,8 +35,7 @@ class TripStarted
     public function broadcastOn(): array
     {
         return [
-            // new PrivateChannel('channel-name'),
-            new Channel('passenger_' . $this->user->id)
+            new Channel('drivers')
         ];
     }
 }
